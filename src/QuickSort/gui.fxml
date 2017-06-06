@@ -3,9 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,22 +11,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -41,7 +22,7 @@
             <HBox id="hbox" prefHeight="26.0" prefWidth="600.0">
                <children>
                   <RadioButton id="radioButtonFile" mnemonicParsing="false" prefHeight="17.0" prefWidth="151.0" text="Load data from file" />
-                  <RadioButton id="radioButtonRandom" mnemonicParsing="false" text="Give free hand to Artificial Inteligent with you little help" />
+                  <RadioButton id="radioButtonRandom" mnemonicParsing="false" selected="true" text="Give free hand to Artificial Inteligent with you little help" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -70,9 +51,9 @@
                   </VBox>
                   <VBox prefHeight="105.0" prefWidth="114.0">
                      <children>
-                        <TextField id="textFieldEnterNumber" disable="true" prefHeight="25.0" prefWidth="84.0" />
-                        <TextField id="textFieldRangerFrom" disable="true" />
-                        <TextField id="textFieldRangerTo" disable="true" />
+                        <TextField id="textFieldEnterNumber" prefHeight="25.0" prefWidth="84.0" promptText="0-10000" text="100" />
+                        <TextField id="textFieldRangerFrom" promptText="0" text="0" />
+                        <TextField id="textFieldRangerTo" promptText="10000" text="500" />
                         <Button id="buttonSubmit" mnemonicParsing="false" text="Submit">
                            <font>
                               <Font size="14.0" />
@@ -85,17 +66,17 @@
                   </VBox>
                   <VBox prefHeight="105.0" prefWidth="328.0">
                      <children>
-                        <Label id="labelNumberOfDataWarning" prefHeight="27.0" prefWidth="330.0" text="It must be natural number &gt; 0" textFill="RED" visible="false">
+                        <Label id="labelNumberOfDataWarning" prefHeight="27.0" prefWidth="330.0" text="It must be natural number &gt; 0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label id="labelRangeMinOfDataWarning" text="It must be natural number" textFill="RED" visible="false">
+                        <Label id="labelRangeMinOfDataWarning" text="It must be natural number">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label id="labelRangeMaxOfDataWarning" text="Label" textFill="RED" visible="false">
+                        <Label id="labelRangeMaxOfDataWarning" text="It must be natural number">
                            <font>
                               <Font size="18.0" />
                            </font>

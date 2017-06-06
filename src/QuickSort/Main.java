@@ -31,6 +31,8 @@ public class Main extends Application
     Label labelRangeMaxOfDataWarning;
 
     Button buttonSubmit;
+   Button buttonAbout;
+
     int min;
     int max;
 
@@ -76,6 +78,8 @@ public class Main extends Application
 
 
         buttonSubmit = (Button) scene.lookup("#buttonSubmit");
+        buttonAbout = (Button) scene.lookup("#buttonAbout");
+
 
         //Create listener for radio buttons
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
@@ -90,7 +94,7 @@ public class Main extends Application
                 //Check what radio button was choose
                 if(group.getSelectedToggle() == radioButtonFile)
                 {
-                    //Clear array with data - to avoid adding the same data after choose this option next time
+                    //Clear arrayToSort with data - to avoid adding the same data after choose this option next time
                     arrayInteger.clear();
 
                     readFile("input.txt");
@@ -105,6 +109,11 @@ public class Main extends Application
             }
         });
 
+        stage.setScene(scene);
+        stage.show();
+
+
+        //Listener buttonSubmit
         buttonSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -115,6 +124,22 @@ public class Main extends Application
                 random(count, min, max);
                 Sorting sorting = new Sorting(arrayInteger);
                 sorting.run();
+
+                //Show Dialog with information about success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Huge Success!");
+                alert.setHeaderText(null);
+                alert.setContentText("" +
+                        "This was a triumph!\n" +
+                        "I'm making a note here:\n" +
+                        "Huge success!\n" +
+                        "\n" +
+                        "It's hard to overstate\n" +
+                        "my satisfaction.\n" +
+                        "\n"+
+                        "Check file: \"output.txt\"");
+                alert.showAndWait();
+
             }
         });
 
@@ -122,6 +147,8 @@ public class Main extends Application
         stage.show();
     }
 
+
+    //Generate array with random values
     private void random(int count, int min, int max)
     {
         Random generator = new Random();
@@ -130,6 +157,7 @@ public class Main extends Application
         arrayInteger.add(generator.nextInt(max)+min);
     }
 
+    //GUI function to disable TextFields
     private void disableTextField(boolean disable)
     {
         if (!disable)
@@ -152,6 +180,8 @@ public class Main extends Application
                 textFieldRangerTo.setText(Integer.toString(max));
             }
     }
+
+    //Loading data from file to array
     private void readFile(String path)
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(path))))
@@ -159,7 +189,7 @@ public class Main extends Application
 
             String line;
 
-            //Reading integers by line and add them to array list
+            //Reading integers by line and add them to arrayToSort list
             while ((line = reader.readLine()) != null)
                 arrayInteger.add(Integer.parseInt(line));
 

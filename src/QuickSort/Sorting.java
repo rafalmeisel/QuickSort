@@ -9,44 +9,48 @@ import java.util.List;
  */
 public class Sorting {
 
-    List<Integer> array;
+    List<Integer> arrayToSort;
 
+    //Default constructor
     public Sorting(List<Integer> array_) {
-        array = array_;
+        arrayToSort = array_;
         run();
     }
 
+    //Start sorting and save result to file
     public void run()
     {
-        sort(0, array.size() - 1);
-        save();
+        sort(0, arrayToSort.size() - 1);
+        saveToFile();
     }
 
-    private void save()
+    //Saving results to file
+    private void saveToFile()
     {
         try{
             PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
-            for (int i = 0; i<array.size();i++)
-            writer.println(array.get(i));
+            for (int i = 0; i< arrayToSort.size(); i++)
+            writer.println(arrayToSort.get(i));
             writer.close();
-        } catch (IOException e) {
-        }
+        } catch (IOException e) {}
     }
-    private int length;
 
+    //Sorting by QuickSort
     private void sort(int lowerIndex, int higherIndex) {
 
         int i = lowerIndex;
         int j = higherIndex;
-        // calculate pivot number, I am taking pivot as middle index number
-        int pivot = array.get(lowerIndex+(higherIndex-lowerIndex)/2);
+
+        //Pivot - taking middle value of array
+        int pivot = arrayToSort.get(lowerIndex+(higherIndex-lowerIndex)/2);
+
         // Divide into two arrays
         while (i <= j) {
 
-            while (array.get(i) < pivot) {
+            while (arrayToSort.get(i) < pivot) {
                 i++;
             }
-            while (array.get(j) > pivot) {
+            while (arrayToSort.get(j) > pivot) {
                 j--;
             }
             if (i <= j) {
@@ -63,10 +67,11 @@ public class Sorting {
             sort(i, higherIndex);
     }
 
+    //Swap values in array
     private void exchangeNumbers(int i, int j) {
-        int temp = array.get(i);
-        array.set(i,array.get(j));
-        array.set(j,temp);
+        int temp = arrayToSort.get(i);
+        arrayToSort.set(i, arrayToSort.get(j));
+        arrayToSort.set(j,temp);
     }
 
 }
