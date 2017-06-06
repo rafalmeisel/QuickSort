@@ -160,8 +160,7 @@ public class Main extends Application
         Random generator = new Random();
         arrayInteger.clear();
         for (int i = 0; i<count; i++)
-        arrayInteger.add(generator.nextInt(max)+min);
-
+        arrayInteger.add(generator.nextInt((max - min)+1 )+min);
         //Creating input to save unsorted data
         try{
             PrintWriter writer = new PrintWriter("input.txt", "UTF-8");
