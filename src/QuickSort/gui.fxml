@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -41,48 +42,66 @@
                <children>
                   <RadioButton id="radioButtonFile" mnemonicParsing="false" prefHeight="17.0" prefWidth="151.0" text="Load data from file" />
                   <RadioButton id="radioButtonRandom" mnemonicParsing="false" text="Give free hand to Artificial Inteligent with you little help" />
-               </children></HBox>
-            <HBox prefHeight="19.0" prefWidth="600.0">
-               <children>
-                  <Label id="labelEnterNumber" text="Number of data:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField id="textFieldEnterNumber" disable="true" />
-                  <Label id="labelMaxValue" text="Max. value: 10'000" textFill="#fc0000" visible="false">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
                </children>
             </HBox>
-            <HBox prefHeight="26.0" prefWidth="600.0">
+            <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="From :">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Label>
-                  <TextField id="textFieldRangerFrom" disable="true" />
-               </children>
-            </HBox>
-            <HBox prefHeight="32.0" prefWidth="600.0">
-               <children>
-                  <Label text="To:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField id="textFieldRangerTo" disable="true" />
-               </children>
-            </HBox>
-            <HBox prefHeight="42.0" prefWidth="600.0">
-               <children>
-                  <Button id="buttonSubmit" disable="true" mnemonicParsing="false" text="Submit">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
+                  <VBox prefHeight="105.0" prefWidth="138.0">
+                     <children>
+                        <Label id="labelEnterNumber" prefHeight="27.0" prefWidth="242.0" text="Number of data:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="From :">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="To:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="105.0" prefWidth="114.0">
+                     <children>
+                        <TextField id="textFieldEnterNumber" disable="true" prefHeight="25.0" prefWidth="84.0" />
+                        <TextField id="textFieldRangerFrom" disable="true" />
+                        <TextField id="textFieldRangerTo" disable="true" />
+                        <Button id="buttonSubmit" mnemonicParsing="false" text="Submit">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="105.0" prefWidth="328.0">
+                     <children>
+                        <Label id="labelNumberOfDataWarning" prefHeight="27.0" prefWidth="330.0" text="It must be natural number &gt; 0" textFill="RED" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label id="labelRangeMinOfDataWarning" text="It must be natural number" textFill="RED" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label id="labelRangeMaxOfDataWarning" text="Label" textFill="RED" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>

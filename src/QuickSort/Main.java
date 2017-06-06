@@ -3,6 +3,8 @@ package QuickSort;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main extends Application
 {
@@ -22,6 +25,11 @@ public class Main extends Application
     TextField textFieldEnterNumber;
     TextField textFieldRangesFrom;
     TextField textFieldRangerTo;
+
+    Label labelNumberOfDataWarning;
+    Label labelRangeMinOfDataWarning;
+    Label labelRangeMaxOfDataWarning;
+
     Button buttonSubmit;
     int min;
     int max;
@@ -61,6 +69,12 @@ public class Main extends Application
         textFieldRangesFrom = (TextField) scene.lookup("#textFieldRangerFrom");
         textFieldRangerTo = (TextField) scene.lookup("#textFieldRangerTo");
 
+        labelNumberOfDataWarning = (Label) scene.lookup("labelNumberOfDataWarning");
+        labelRangeMinOfDataWarning = (Label) scene.lookup("labelRangeMinOfDataWarning");
+        labelRangeMaxOfDataWarning = (Label) scene.lookup("labelRangeMaxOfDataWarning");
+
+
+
         buttonSubmit = (Button) scene.lookup("#buttonSubmit");
 
         //Create listener for radio buttons
@@ -79,7 +93,7 @@ public class Main extends Application
                     //Clear array with data - to avoid adding the same data after choose this option next time
                     arrayInteger.clear();
 
-                    readFile("Data.txt");
+                    readFile("input.txt");
                     disableTextField(true);
 
                 }
@@ -91,8 +105,29 @@ public class Main extends Application
             }
         });
 
+        buttonSubmit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int count = Integer.parseInt(textFieldEnterNumber.getText());
+                int min = Integer.parseInt(textFieldRangesFrom.getText());
+                int max = Integer.parseInt(textFieldRangerTo.getText());
+
+                random(count, min, max);
+                Sorting sorting = new Sorting(arrayInteger);
+                sorting.run();
+            }
+        });
+
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void random(int count, int min, int max)
+    {
+        Random generator = new Random();
+
+        for (int i = 0; i<count; i++)
+        arrayInteger.add(generator.nextInt(max)+min);
     }
 
     private void disableTextField(boolean disable)
@@ -105,8 +140,6 @@ public class Main extends Application
             textFieldRangesFrom.setText("");
             textFieldRangerTo.setDisable(false);
             textFieldRangerTo.setText("");
-
-            buttonSubmit.setDisable(false);
         }
 
         else
@@ -117,13 +150,12 @@ public class Main extends Application
                 textFieldRangesFrom.setText(Integer.toString(min));
                 textFieldRangerTo.setDisable(true);
                 textFieldRangerTo.setText(Integer.toString(max));
-
-                buttonSubmit.setDisable(true);
             }
     }
     private void readFile(String path)
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(path)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(path))))
+        {
 
             String line;
 
@@ -134,15 +166,11 @@ public class Main extends Application
             min = arrayInteger.get(0);
             max = arrayInteger.get(0);
 
-            for(Integer i: arrayInteger) {
+            for(Integer i: arrayInteger)
+            {
                 if(i < min) min = i;
                 if(i > max) max = i;
             }
-                //TODO:
-                // To deleted - display arrayInteger contents
-                for(int i = 0; i<arrayInteger.size();i++)
-                    System.out.println(arrayInteger.get(i));
-
                 //Close file
                 reader.close();
 
