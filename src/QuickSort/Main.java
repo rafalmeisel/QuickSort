@@ -11,10 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +20,7 @@ public class Main extends Application
 {
     List<Integer> arrayInteger = new ArrayList<>();
     TextField textFieldEnterNumber;
-    TextField textFieldRangesFrom;
+    TextField textFieldRangeFrom;
     TextField textFieldRangerTo;
 
     Label labelNumberOfDataWarning;
@@ -31,11 +28,14 @@ public class Main extends Application
     Label labelRangeMaxOfDataWarning;
 
     Button buttonSubmit;
-   Button buttonAbout;
+    Button buttonAbout;
+
+    boolean radioButtonCheck = true;
 
     int min;
     int max;
-
+    int count;
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -66,16 +66,14 @@ public class Main extends Application
         radioButtonRandom.setToggleGroup(group);
         radioButtonRandom.setUserData("Random");
 
-        //Initialize TextFields and connect them with items on the layout
+        //Initialize elements and connect them with items on the layout
         textFieldEnterNumber = (TextField) scene.lookup("#textFieldEnterNumber");
-        textFieldRangesFrom = (TextField) scene.lookup("#textFieldRangerFrom");
+        textFieldRangeFrom = (TextField) scene.lookup("#textFieldRangerFrom");
         textFieldRangerTo = (TextField) scene.lookup("#textFieldRangerTo");
 
         labelNumberOfDataWarning = (Label) scene.lookup("labelNumberOfDataWarning");
         labelRangeMinOfDataWarning = (Label) scene.lookup("labelRangeMinOfDataWarning");
         labelRangeMaxOfDataWarning = (Label) scene.lookup("labelRangeMaxOfDataWarning");
-
-
 
         buttonSubmit = (Button) scene.lookup("#buttonSubmit");
         buttonAbout = (Button) scene.lookup("#buttonAbout");
@@ -97,6 +95,7 @@ public class Main extends Application
                     //Clear arrayToSort with data - to avoid adding the same data after choose this option next time
                     arrayInteger.clear();
 
+                    radioButtonCheck = false;
                     readFile("input.txt");
                     disableTextField(true);
 
@@ -104,6 +103,7 @@ public class Main extends Application
                 else if(group.getSelectedToggle() == radioButtonRandom)
                 {
                     disableTextField(false);
+                    radioButtonCheck = true;
                 }
 
             }
@@ -117,11 +117,17 @@ public class Main extends Application
         buttonSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                int count = Integer.parseInt(textFieldEnterNumber.getText());
-                int min = Integer.parseInt(textFieldRangesFrom.getText());
-                int max = Integer.parseInt(textFieldRangerTo.getText());
 
-                random(count, min, max);
+                //If radio button with data to write was choose - catch data to integer
+                if(radioButtonCheck)
+                {
+                    count = Integer.parseInt(textFieldEnterNumber.getText());
+                    min = Integer.parseInt(textFieldRangeFrom.getText());
+                    max = Integer.parseInt(textFieldRangerTo.getText());
+                    random(count, min, max);
+                }
+
+                //Start sorting
                 Sorting sorting = new Sorting(arrayInteger);
                 sorting.run();
 
@@ -152,9 +158,21 @@ public class Main extends Application
     private void random(int count, int min, int max)
     {
         Random generator = new Random();
-
+        arrayInteger.clear();
         for (int i = 0; i<count; i++)
         arrayInteger.add(generator.nextInt(max)+min);
+
+        //Creating input to save unsorted data
+        try{
+            PrintWriter writer = new PrintWriter("input.txt", "UTF-8");
+            writer.flush();
+            for(int i =0;i<arrayInteger.size();i++)
+            {
+                writer.append(arrayInteger.get(i) + "");
+                writer.println();
+            }
+            writer.close();
+        } catch (IOException e) {}
     }
 
     //GUI function to disable TextFields
@@ -164,21 +182,21 @@ public class Main extends Application
         {
             textFieldEnterNumber.setDisable(false);
             textFieldEnterNumber.setText("");
-            textFieldRangesFrom.setDisable(false);
-            textFieldRangesFrom.setText("");
+            textFieldRangeFrom.setDisable(false);
+            textFieldRangeFrom.setText("");
             textFieldRangerTo.setDisable(false);
             textFieldRangerTo.setText("");
         }
 
         else
-            {
-                textFieldEnterNumber.setDisable(true);
-                textFieldEnterNumber.setText(Integer.toString(arrayInteger.size()));
-                textFieldRangesFrom.setDisable(true);
-                textFieldRangesFrom.setText(Integer.toString(min));
-                textFieldRangerTo.setDisable(true);
-                textFieldRangerTo.setText(Integer.toString(max));
-            }
+        {
+            textFieldEnterNumber.setDisable(true);
+            textFieldEnterNumber.setText(Integer.toString(arrayInteger.size()));
+            textFieldRangeFrom.setDisable(true);
+            textFieldRangeFrom.setText(Integer.toString(min));
+            textFieldRangerTo.setDisable(true);
+            textFieldRangerTo.setText(Integer.toString(max));
+        }
     }
 
     //Loading data from file to array
@@ -186,8 +204,8 @@ public class Main extends Application
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(path))))
         {
-
             String line;
+            arrayInteger.clear();
 
             //Reading integers by line and add them to arrayToSort list
             while ((line = reader.readLine()) != null)
@@ -201,6 +219,7 @@ public class Main extends Application
                 if(i < min) min = i;
                 if(i > max) max = i;
             }
+            count = arrayInteger.size();
                 //Close file
                 reader.close();
 

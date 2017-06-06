@@ -2,6 +2,7 @@ package QuickSort;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,11 +10,11 @@ import java.util.List;
  */
 public class Sorting {
 
-    List<Integer> arrayToSort;
+    List<Integer> arrayToSort = new ArrayList<>();
 
     //Default constructor
     public Sorting(List<Integer> array_) {
-        arrayToSort = array_;
+        arrayToSort.addAll(array_);
         run();
     }
 

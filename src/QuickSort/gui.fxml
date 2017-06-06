@@ -22,7 +22,7 @@
             <HBox id="hbox" prefHeight="26.0" prefWidth="600.0">
                <children>
                   <RadioButton id="radioButtonFile" mnemonicParsing="false" prefHeight="17.0" prefWidth="151.0" text="Load data from file" />
-                  <RadioButton id="radioButtonRandom" mnemonicParsing="false" selected="true" text="Give free hand to Artificial Inteligent with you little help" />
+                  <RadioButton id="radioButtonRandom" mnemonicParsing="false" selected="true" text="Give free hand to Artificial Inteligent with your little help" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
